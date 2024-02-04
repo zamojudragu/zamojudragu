@@ -1,10 +1,16 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#app-container {
     text-align: center;
-    margin: 50px;
 }
 
 #word-container {
-    max-width: 400px;
-    margin: 0 auto;
+    margin-top: 20px;
 }
