@@ -1,39 +1,37 @@
+const germanWords = ["Das Auto", "Die Sonne", "Die Blume"]; // Add more German words
+
 let currentWordIndex = 0;
-let words;
 
-// Fetch words from the JSON file
-async function fetchWords() {
-    const response = await fetch('words.json');
-    words = await response.json();
-    showNextWord();
+function loadNextWord() {
+    document.getElementById("german-word").innerText = germanWords[currentWordIndex];
+    document.getElementById("user-input").value = "";
+    document.getElementById("result-message").innerText = "";
 }
 
-// Display the next word
-function showNextWord() {
-    const germanWordElement = document.getElementById('german-word');
-    germanWordElement.textContent = words[currentWordIndex].german;
-    document.getElementById('user-input').value = '';
-}
-
-// Check user input against the correct answer
 function checkAnswer() {
-    const userInput = document.getElementById('user-input').value.toLowerCase();
-    const correctAnswer = words[currentWordIndex].croatian.toLowerCase();
+    const userInput = document.getElementById("user-input").value.toLowerCase();
+    const croatianTranslation = getTranslation(germanWords[currentWordIndex]).toLowerCase();
 
-    if (userInput === correctAnswer) {
-        alert('Correct!');
+    if (userInput === croatianTranslation) {
+        document.getElementById("result-message").innerText = "Correct!";
     } else {
-        alert('Incorrect. Try again.');
+        document.getElementById("result-message").innerText = "Incorrect. Try again.";
     }
 
-    // Move to the next word
     currentWordIndex++;
-    if (currentWordIndex === words.length) {
-        currentWordIndex = 0; // Loop back to the first word
+
+    if (currentWordIndex === germanWords.length) {
+        currentWordIndex = 0; // Restart if all words are done
     }
 
-    showNextWord();
+    loadNextWord();
 }
 
-// Initialize the app
-fetchWords();
+function getTranslation(germanWord) {
+    // You would replace this with a proper translation logic or API call
+    // For simplicity, just returning the German word in uppercase here
+    return germanWord.toUpperCase();
+}
+
+// Initial load
+loadNextWord();
