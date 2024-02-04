@@ -1,25 +1,39 @@
-const germanWords = ["Hallo", "Guten Tag", "Danke", "Bitte", "Tschüss"];
-const croatianTranslations = ["Bok", "Dobar dan", "Hvala", "Molim", "Doviđenja"];
+let currentWordIndex = 0;
+let words;
 
-let currentIndex = 0;
-
-function displayRandomWord() {
-    const wordDisplay = document.getElementById("word-display");
-    wordDisplay.textContent = germanWords[currentIndex];
+// Fetch words from the JSON file
+async function fetchWords() {
+    const response = await fetch('words.json');
+    words = await response.json();
+    showNextWord();
 }
 
-function checkAnswer() {
-    const userInput = document.getElementById("user-input").value.toLowerCase();
-    const currentTranslation = croatianTranslations[currentIndex].toLowerCase();
+// Display the next word
+function showNextWord() {
+    const germanWordElement = document.getElementById('german-word');
+    germanWordElement.textContent = words[currentWordIndex].german;
+    document.getElementById('user-input').value = '';
+}
 
-    if (userInput === currentTranslation) {
-        alert("Correct!");
+// Check user input against the correct answer
+function checkAnswer() {
+    const userInput = document.getElementById('user-input').value.toLowerCase();
+    const correctAnswer = words[currentWordIndex].croatian.toLowerCase();
+
+    if (userInput === correctAnswer) {
+        alert('Correct!');
     } else {
-        alert(`Incorrect. The correct answer is: ${currentTranslation}`);
+        alert('Incorrect. Try again.');
     }
 
-    currentIndex = (currentIndex + 1) % germanWords.length;
-    displayRandomWord();
+    // Move to the next word
+    currentWordIndex++;
+    if (currentWordIndex === words.length) {
+        currentWordIndex = 0; // Loop back to the first word
+    }
+
+    showNextWord();
 }
 
-window.onload = displayRandomWord;
+// Initialize the app
+fetchWords();
