@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>German-Croatian Language Learning</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <title>German Learning App</title>
 </head>
 <body>
-    <div id="app">
-        <h1>Learn German and Croatian</h1>
-        <div id="word-container">
-            <p id="german-word"></p>
-            <input type="text" id="user-input" placeholder="Type Croatian word">
-            <button onclick="checkTranslation()">Check</button>
-        </div>
-        <p id="result"></p>
+    <div id="word-container">
+        <h1 id="german-word">...</h1>
+        <input type="text" id="user-input" placeholder="Type the Croatian translation">
+        <button onclick="checkAnswer()">Check</button>
     </div>
-    <script src="app.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
